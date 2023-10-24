@@ -6,8 +6,8 @@ public class Agentur
     public Agentur(){
         statisten = new Queue<>();
     }
-    public void neuerStatist(String pName,Geschlecht pGeschl){
-        statisten.enqueue(new Statist(pName,pGeschl,0));
+    public void neuerStatist(String pName,Geschlecht pGeschl,int pScore){
+        statisten.enqueue(new Statist(pName,pGeschl,pScore));
     }
     public Statist statistVermitteln(){
         Statist statist = statisten.front();
@@ -16,23 +16,32 @@ public class Agentur
     }
     public Queue<Statist> sortByScore()
     {
-        List<Statist> sortiert = new ArrayList<>();
-        while(!statisten.isEmpty())
-        {
+        Queue<Statist> save = statisten;
+        List<Statist> sortiert = new ArrayList<>();        
+        do{
             sortiert.add(statisten.front());
             statisten.dequeue();
+        } while (!statisten.isEmpty());
+        for (int i = 0; i < sortiert.size()-1;i++)
+        {
+            int max = 0;
+            for (int j = i+1;i < sortiert.size();j++)
+            {
+                if (sortiert.get(i).getScore() < sortiert.get(j).getScore())
+                {
+                    max = j;
+                }
+            }
+            Statist smallerScore = sortiert.get(i);
+            sortiert.add(max,sortiert.get(i));
+            sortiert.add(i,smallerScore);
         }
+        Queue<Statist> QueueSortiert = new Queue<>();
         for (int i = 0;i < sortiert.size();i++)
         {
-            if(sortiert.get(i).getScore() > sortiert.get(i+1).getScore())
-            {
-                Statist tmp = sortiert.get(i);
-                sortiert.set(sortiert.get(i),i+1);
-                
-            }
+            QueueSortiert.enqueue(sortiert.get(i));
         }
-        Queue<Statist> sortiert_queue = new Queue<>();
-        return sortiert_queue;
+        return QueueSortiert;
     }
     public Queue<Statist> getStatisten(){return statisten;}
     public Statist statistVermitteln(Geschlecht pGeschlecht)

@@ -1,4 +1,4 @@
 public enum Geschlecht
 {
-   MÄNNLICH,WEIBLICH
+   MALE,WEIBLICH
 }

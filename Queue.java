@@ -4,8 +4,8 @@ public class Queue<T>{
     
     public Queue()
     {
-        head = null;
-        tail = null;
+        head = new Node<T>(null);
+        tail = new Node<T>(null);
     }
     public T front(){
         if(isEmpty())
@@ -20,17 +20,21 @@ public class Queue<T>{
     }
     public void enqueue(T content)
     {
-        if(head == null)
+        if(head.getData() == null)
         {
             head.setData(content);
-        }
-        if(head.next() == null)
-        {
-            tail = new Node<T>(content);
             head.setNextNode(tail);
         }
-        tail.next().setNextNode(new Node<T>(content));
-        tail = tail.next();
+        else if(head.getData() != null && tail.getData() == null)
+        {
+            tail.setData(content);
+            head.setNextNode(tail);
+        }
+        else{
+            tail.next().setNextNode(new Node<T>(content));
+            tail = tail.next();
+        }
+        
     }
     public boolean isEmpty(){return head == null;}
     
