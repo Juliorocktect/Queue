@@ -1,41 +1,37 @@
-public class Queue<T>{
+public class Queue<T> {
     private Node<T> head;
     private Node<T> tail;
-    
-    public Queue()
-    {
-        head = new Node<T>(null);
+
+    public Queue() {
         tail = new Node<T>(null);
     }
-    public T front(){
-        if(isEmpty())
-        {
+
+    public T front() {
+        if (isEmpty()) {
             return null;
-        } 
+        }
         return head.getData();
     }
-    public void dequeue()
-    {
-        head = head.next();
+
+    public void dequeue() {
+        if (!isEmpty()) {
+            head = head.next();
+        }
     }
-    public void enqueue(T content)
-    {
-        if(head.getData() == null)
-        {
-            head.setData(content);
-            head.setNextNode(tail);
+
+    public void enqueue(T content) {
+        if (head == null) {
+            head = new Node<T>(content);
+            tail = head;
+        } else {
+            Node<T> newNode = new Node<T>(content);
+            tail.setNextNode(newNode);
+            tail = newNode;
         }
-        else if(head.getData() != null && tail.getData() == null)
-        {
-            tail.setData(content);
-            head.setNextNode(tail);
-        }
-        else{
-            tail.next().setNextNode(new Node<T>(content));
-            tail = tail.next();
-        }
-        
     }
-    public boolean isEmpty(){return head == null;}
-    
+
+    public boolean isEmpty() {
+        return head == null;
+    }
+
 }
