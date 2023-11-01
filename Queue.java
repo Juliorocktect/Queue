@@ -1,9 +1,35 @@
 public class Queue<T> {
-    private Node<T> head;
-    private Node<T> tail;
+    private class Node {
+        private T data;
+        private Node nextNode;
+
+        public Node(T data) {
+            this.data = data;
+            nextNode = null;
+        }
+
+        public void setNextNode(Node pNextNode) {
+            nextNode = pNextNode;
+        }
+
+        public T getData() {
+            return data;
+        }
+
+        public Node next() {
+            return nextNode;
+        }
+
+        public void setData(T data) {
+            this.data = data;
+        }
+    }
+
+    private Node head;
+    private Node tail;
 
     public Queue() {
-        tail = new Node<T>(null);
+        tail = new Node(null);
     }
 
     public T front() {
@@ -21,10 +47,10 @@ public class Queue<T> {
 
     public void enqueue(T content) {
         if (head == null) {
-            head = new Node<T>(content);
+            head = new Node(content);
             tail = head;
         } else {
-            Node<T> newNode = new Node<T>(content);
+            Node newNode = new Node(content);
             tail.setNextNode(newNode);
             tail = newNode;
         }
@@ -33,5 +59,4 @@ public class Queue<T> {
     public boolean isEmpty() {
         return head == null;
     }
-
 }
