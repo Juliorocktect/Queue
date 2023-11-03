@@ -44,6 +44,8 @@ public class Agentur {
         Queue<Statist> hilfQ = new Queue<>();
         while(!statisten.isEmpty())
         {
+            ergQ.enqueue(statisten.front());
+            statisten.dequeue();
             Statist unsorttierterStatist = statisten.front();
             Statist vorne = ergQ.front();
             ergQ.dequeue();
